@@ -20,6 +20,7 @@ export class PainelComponent implements OnInit {
 
 
   constructor() {
+    //atribuindo a primeira fase ao iniciar aplicação.
     this.fraseDaRodada = this.frases[this.rodada];
   }
 
@@ -28,6 +29,7 @@ export class PainelComponent implements OnInit {
   }
 
   //event binding
+  //pegando os valores que são digitados pelo usuário na textArea
   verificaFrase(event: Event): void {
     this.palavraDigitadaPeloUsuario = (event.target as HTMLInputElement).value;
   }
@@ -36,10 +38,16 @@ export class PainelComponent implements OnInit {
      if(this.rodada == this.frases.length) {
        console.log('chegou ao fim');
      }
+     //verificando se o valor digitado corresponde a tradução.
     if (this.frases[this.rodada].frasePtBr.toLowerCase() == this.palavraDigitadaPeloUsuario.toLowerCase()) {
+      //atualizando a rodada
         this.rodada ++;
+      //atualizando a frase da rodada
         this.fraseDaRodada = this.frases[this.rodada];
+
+        //incrementando a barra de progresso do elemenbto pai para o filho (@input())
         this.classePaiProgresso += (100/this.frases.length)
+
         console.log(this.fraseDaRodada);
     }else{
       console.log('errado');
