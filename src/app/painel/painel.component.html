@@ -14,9 +14,13 @@
       <div class="col">
         <h6>{{instrucao}}</h6>
         <p>{{fraseDaRodada.fraseEng}}</p>
+
         <div class="form-group">
-          <textarea class="form-control" rows="3" (input)="verificaFrase($event)"></textarea>
+          <textarea class="form-control" rows="3"
+          (input)="verificaFrase($event)"
+          [value]="palavraDigitadaPeloUsuario"></textarea>
         </div>
+
         <div class="d-flex justify-content-end">
           <button type="button" class="btn btn-success" (click)="verificaPalavra()">Verificar</button>
         </div>

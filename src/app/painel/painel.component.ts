@@ -20,8 +20,7 @@ export class PainelComponent implements OnInit {
 
 
   constructor() {
-    //atribuindo a primeira fase ao iniciar aplicação.
-    this.fraseDaRodada = this.frases[this.rodada];
+    this.atualizaRodada();
   }
 
   ngOnInit(): void {
@@ -42,16 +41,21 @@ export class PainelComponent implements OnInit {
     if (this.frases[this.rodada].frasePtBr.toLowerCase() == this.palavraDigitadaPeloUsuario.toLowerCase()) {
       //atualizando a rodada
         this.rodada ++;
-      //atualizando a frase da rodada
-        this.fraseDaRodada = this.frases[this.rodada];
+        this.atualizaRodada();
 
-        //incrementando a barra de progresso do elemenbto pai para o filho (@input())
+      //incrementando a barra de progresso do elemenbto pai para o filho (@input())
         this.classePaiProgresso += (100/this.frases.length)
-
         console.log(this.fraseDaRodada);
     }else{
-      console.log('errado');
+      alert('errado');
     }
+  }
+
+  atualizaRodada () : void {
+    //atualizando a frase da rodada
+      this.fraseDaRodada = this.frases[this.rodada];
+    //utilizando property binding para limpar a text area
+      this.palavraDigitadaPeloUsuario = ''
   }
 
 }
