@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {Coracao} from '../shared/coracao.model';
+import {Coracoes} from './coracao-mock';
 
 @Component({
   selector: 'app-tentativas',
@@ -6,14 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tentativas.component.css']
 })
 export class TentativasComponent implements OnInit {
+  @Input() coracoes: Coracao [] = Coracoes;
 
   //data-binding: Property-binding
-  public coracaoVazio = '/assets/coracao_vazio.png';
-  public coracaoCheio = '/assets/coracao_cheio.png';
-
-  constructor() { }
-
+  constructor() {
+    console.log();
+  }
   ngOnInit(): void {
   }
-
 }
