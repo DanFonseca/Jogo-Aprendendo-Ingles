@@ -1,4 +1,5 @@
-<img [src]="coracoes[0].endereco" alt="coração vazio">
+<!-- <img [src]="coracoes[0].endereco" alt="coração vazio">
 <img [src]="coracoes[1].endereco" alt="coração cheio">
 <img [src]="coracoes[2].endereco" alt="coração cheio">
-
+ -->
+<img *ngFor="let coracoao of coracoes" [src]="coracoao.endereco"/>
