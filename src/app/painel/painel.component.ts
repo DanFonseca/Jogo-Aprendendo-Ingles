@@ -19,8 +19,8 @@ export class PainelComponent implements OnInit, OnDestroy {
   public rodada: number = 0;
   public fraseDaRodada: Frase;
 
-  public classePaiProgresso: number = 0;
   public classePaiCoracoes:  Coracao [] = Coracoes;
+  public classePaiProgresso: number = 0;
   public tentativas: number = 0;
 
   @Output() encerraJogo : EventEmitter<string> = new EventEmitter;
@@ -29,6 +29,10 @@ export class PainelComponent implements OnInit, OnDestroy {
   constructor() {
     this.atualizaRodada();
   }
+  ngOnInit(): void {
+
+  }
+
   ngOnDestroy(): void {
     console.log('Componente foi destruído');
   }

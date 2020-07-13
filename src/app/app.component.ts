@@ -14,4 +14,8 @@ export class AppComponent  {
     this.jogoEmAndamento = false;
   }
 
+  jogarNovamente (): void {
+    window.location.reload();
+  }
+
 }

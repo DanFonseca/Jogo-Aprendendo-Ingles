@@ -13,6 +13,7 @@ export class TentativasComponent implements OnInit, OnChanges {
 
   //data-binding: Property-binding
   constructor() {
+
   }
   ngOnInit(): void {
 
