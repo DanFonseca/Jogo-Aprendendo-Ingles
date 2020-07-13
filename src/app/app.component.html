@@ -1,2 +1,4 @@
 <app-topo></app-topo>
-<app-painel (encerraJogo) = "encerraJogo($event)"></app-painel>
+<div *ngIf = "jogoEmAndamento">
+  <app-painel (encerraJogo) = "encerraJogo($event)"></app-painel>
+</div>

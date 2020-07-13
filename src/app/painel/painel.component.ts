@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { arrayDefrases } from './frases-mock';
 import { Frase } from '../shared/frase.model';
 import {Coracao} from '../shared/coracao.model';
@@ -10,7 +10,7 @@ import {Coracoes} from '../tentativas/coracao-mock';
   templateUrl: './painel.component.html',
   styleUrls: ['./painel.component.css']
 })
-export class PainelComponent implements OnInit {
+export class PainelComponent implements OnInit, OnDestroy {
 
   public frases: Frase[] = arrayDefrases;
   public instrucao: string = 'Traduza a Frase';
@@ -25,12 +25,12 @@ export class PainelComponent implements OnInit {
 
   @Output() encerraJogo : EventEmitter<string> = new EventEmitter;
 
+
   constructor() {
     this.atualizaRodada();
   }
-
-  ngOnInit(): void {
-
+  ngOnDestroy(): void {
+    console.log('Componente foi destruído');
   }
 
   //event binding pegando os valores que são digitados pelo usuário na textArea
@@ -55,9 +55,12 @@ export class PainelComponent implements OnInit {
         this.classePaiProgresso += (100/this.frases.length);
 
     }else{
-      if(this.tentativas == this.classePaiCoracoes.length) this.encerraJogo.emit('derrota!');
-      this.classePaiCoracoes[this.tentativas].setVazio();
-      this.tentativas++
+      if(this.tentativas == this.classePaiCoracoes.length) {
+        this.encerraJogo.emit('derrota!');
+      }else {
+        this.classePaiCoracoes[this.tentativas].setVazio();
+        this.tentativas++
+      }
     }
   }
 
