@@ -48,7 +48,7 @@ export class PainelComponent implements OnInit, OnDestroy {
       .toLowerCase()) {
 
         this.rodada ++;
-        if(this.verificaSeGanhou()) this.encerraJogo.emit('Vitoria!');
+        if(this.verificaSeGanhou()) this.encerraJogo.emit('vitoria');
         this.atualizaRodada();
 
       //incrementando a barra de progresso do elemenbto pai para o filho (@input())
@@ -56,7 +56,7 @@ export class PainelComponent implements OnInit, OnDestroy {
 
     }else{
       if(this.tentativas == this.classePaiCoracoes.length) {
-        this.encerraJogo.emit('derrota!');
+        this.encerraJogo.emit('derrota');
       }else {
         this.classePaiCoracoes[this.tentativas].setVazio();
         this.tentativas++
