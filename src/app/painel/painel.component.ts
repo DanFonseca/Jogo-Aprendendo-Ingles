@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { arrayDefrases } from './frases-mock';
 import { Frase } from '../shared/frase.model';
 import {Coracao} from '../shared/coracao.model';
@@ -20,12 +20,13 @@ export class PainelComponent implements OnInit {
   public fraseDaRodada: Frase;
 
   public classePaiProgresso: number = 0;
-  public classePaiCoracoes:  Coracao [];
-  public tentivas: number = 0;
+  public classePaiCoracoes:  Coracao [] = Coracoes;
+  public tentativas: number = 0;
+
+  @Output() encerraJogo : EventEmitter<string> = new EventEmitter;
 
   constructor() {
     this.atualizaRodada();
-    this.classePaiCoracoes = Coracoes.slice();
   }
 
   ngOnInit(): void {
@@ -33,12 +34,12 @@ export class PainelComponent implements OnInit {
   }
 
   //event binding pegando os valores que são digitados pelo usuário na textArea
-
   verificaFrase(event: Event): void {
     this.palavraDigitadaPeloUsuario = (event.target as HTMLInputElement).value;
   }
 
   verificaPalavra(): void {
+
      //verificando se o valor digitado corresponde a tradução.
     if (this.frases[this.rodada]
       .frasePtBr
@@ -47,25 +48,23 @@ export class PainelComponent implements OnInit {
       .toLowerCase()) {
 
         this.rodada ++;
-        if(this.verificaSeGanhou()) console.log('Parabéns, vc ganhou ! =)');
+        if(this.verificaSeGanhou()) this.encerraJogo.emit('Vitoria!');
         this.atualizaRodada();
 
       //incrementando a barra de progresso do elemenbto pai para o filho (@input())
         this.classePaiProgresso += (100/this.frases.length);
 
     }else{
-      if(this.verificaCoracoesVazios()){
-        console.log('Voce perdeu!');
-      }
-      this.classePaiCoracoes[this.tentivas].setVazio();
-      this.tentivas++
+      if(this.tentativas == this.classePaiCoracoes.length) this.encerraJogo.emit('derrota!');
+      this.classePaiCoracoes[this.tentativas].setVazio();
+      this.tentativas++
     }
   }
 
   atualizaRodada () : void {
-            //atualizando a frase da rodada
+      //atualizando a frase da rodada
       this.fraseDaRodada = this.frases[this.rodada];
-            //utilizando property binding para limpar a text area
+      //utilizando property binding para limpar a text area
       this.palavraDigitadaPeloUsuario = ''
   }
 
@@ -73,11 +72,4 @@ export class PainelComponent implements OnInit {
     return this.rodada == this.frases.length ? true : false;
   }
 
-  verificaCoracoesVazios ()  {
-     let estaVazio =  this.classePaiCoracoes.map(x => x.vazio).reduce((acc, next) => {
-      return acc && next;
-     })
-
-     return estaVazio;
-  }
 }
